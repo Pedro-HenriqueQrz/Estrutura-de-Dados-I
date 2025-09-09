@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 int main() {
-    float *alunos[3];
+    float * alunos[3];
     float e1[3];
     float e2[3];
     float e3[3];
@@ -12,19 +12,19 @@ int main() {
 
     for (i = 0; i < 3; i++) {
         for (j = 0; j < 3; j++) {
-            scanf("%f", &alunos[i][j]);
+            scanf("%f", *(alunos + i) + j);
         }
     }
 
     float maior = alunos[0][0];
     int cont = 0;
-    
+
     for (i = 0; i < 3; i++) {
         for (j = 0; j < 3; j++) {
-            if (alunos[i][j] >= 7) {
+            if (*(*(alunos + i) + j) >= 7) {
                 cont++;
             }
-            if (alunos[i][j] > maior) {
+            if (*(*(alunos + i) + j) > maior) {
                 maior = alunos[i][j];
             }
         }
