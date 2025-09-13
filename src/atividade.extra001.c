@@ -2,7 +2,7 @@
 
 int main() {
     float estudantes[3][3];
-    float *ponteiro_estudantes = estudantes;
+    float *ponteiro_estudantes = (float *)estudantes;
     int i;
     for (i = 0; i < 3; i++) {
         scanf("%f %f", &estudantes[i][0], &estudantes[i][1]);
