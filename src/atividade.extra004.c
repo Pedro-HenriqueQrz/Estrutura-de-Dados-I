@@ -7,6 +7,7 @@ int main(){
     char chave[50];
     int contador = 0;
     char *ponteiro;
+    
 
     printf("Escreva o texto: \n");
     fgets(texto, sizeof(texto), stdin);
@@ -23,12 +24,10 @@ int main(){
         contador++;
         ponteiro += strlen(chave);
     }
+
+    strstr(texto, chave) != NULL ? printf("Palavra encontrada! Ela aparece %i", contador) : printf("Palavra não encontrada!");
     
-    if(strstr(texto, chave) != NULL){
-        printf("Palavra encontrada! Ela aparece %i", contador);
-    } else {
-        printf("Palavra não encontrada!");
-    }
+  
 
     return 0;
 
