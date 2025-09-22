@@ -13,18 +13,18 @@ int main(){
 
     for(int i = 0; i < n; i++){
         for (int j = 0; j < n; j++){
-            if (i + j == n -1){
-                *(matriz + (i * n) + j) = 2;
-            } else if (i == j){
-                *(matriz + (i * n) + j) = 1;
-            } else{
-                *(matriz + (i * n) + j) = 3;
-            }
+            int min1 = i < j ? i : j;
+            int min2 = (n-1-i) < (n-1-j) ? (n-1-i) : (n-1-j);
+            int valor = 1 + (min1 < min2 ? min1 : min2);
+            *(matriz + (i * n) + j) = valor;
 
-            printf("%d", *(matriz + (i * n) + j));
+            printf("%d", valor);
         }
+
         printf("\n");
+        
     }
 
+    free(matriz);
     return 0;
 }
