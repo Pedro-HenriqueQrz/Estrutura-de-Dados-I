@@ -1,4 +1,3 @@
-
 # Atividades de Algoritmos e Estrutura de Dados I
 
 Este repositório reúne as atividades da disciplina de **Algoritmos e Estrutura de Dados I** do Curso de Bacharelado em Tecnologia da Informação da Universidade Federal Rural do Semi-Árido (UFERSA).
