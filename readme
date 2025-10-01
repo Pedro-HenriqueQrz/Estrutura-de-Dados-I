@@ -1,0 +1,29 @@
+
+# Atividades de Algoritmos e Estrutura de Dados I
+
+Este repositório reúne as atividades da disciplina de **Algoritmos e Estrutura de Dados I** do Curso de Bacharelado em Tecnologia da Informação da Universidade Federal Rural do Semi-Árido (UFERSA).
+
+## Objetivo
+
+As atividades têm como foco principal o uso de ponteiros em linguagem C, abordando conceitos fundamentais de estrutura de dados. Elas são preparatórias para o desenvolvimento de um jogo utilizando a biblioteca Allegro, simulando situações comuns em programação de jogos.
+
+## Estrutura das Atividades
+
+- **Simulação de Jogos:** Cada atividade representa uma situação típica de jogos, como movimentação de personagens, manipulação de estados, controle de ações e interações.
+- **Prática com Ponteiros:** Exercícios práticos para fixação do uso de ponteiros, manipulação de memória, passagem de parâmetros por referência e criação de estruturas dinâmicas.
+- **Enumerações e Estruturas:** Utilização de enums e structs para organizar estados e dados dos personagens, facilitando o entendimento de boas práticas de programação.
+
+## Organização dos Arquivos
+
+- Os arquivos fonte estão na pasta `src/`, nomeados conforme o número da atividade (ex: `atividade001.c`, `atividade038.c`).
+- Os executáveis gerados ficam na pasta `bin/`.
+
+## Como Compilar
+
+Para compilar uma atividade, utilize o comando abaixo no terminal (exemplo para o MinGW no Windows):
+
+```sh
+gcc src/atividade001.c -o bin/atividade001.exe
+```
+
+Ou utilize as tarefas pré-configuradas do VS Code para facilitar o processo.
