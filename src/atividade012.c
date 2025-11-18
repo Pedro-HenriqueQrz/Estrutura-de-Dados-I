@@ -10,7 +10,7 @@ int main(){
 
     comprimento = strlen(nome_jogador);
 
-   comprimento <= 15 ? printf(" Bem-vindo ao jogo, %s", nome_jogador) : printf("Nome muito longo! Por favor, escolha um nome com ate 15 caracteres");
+    comprimento <= 15 ? printf(" Bem-vindo ao jogo, %s", nome_jogador) : printf("Nome muito longo! Por favor, escolha um nome com ate 15 caracteres");
 
    return 0;
     
