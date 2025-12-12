@@ -23,6 +23,8 @@ int main(){
     for ( i = 0; i < n; i++){
         printf("%i ", fragmentos[i]);
     }
+
+    free(fragmentos);
     
     return 0;
     

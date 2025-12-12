@@ -34,6 +34,8 @@ int main(){
         printf("%s %d\n", jogador[i].nome, jogador[i].pontuacao);
     }
 
+    free(jogador);
+
     return 0;
     
 }

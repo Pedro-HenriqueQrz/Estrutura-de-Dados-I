@@ -23,6 +23,8 @@ int main(){
         printf("%i ", tempo[i]);
     }
 
+    free(tempo);
+
     return 0;
     
 }

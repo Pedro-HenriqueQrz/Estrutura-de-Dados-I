@@ -29,6 +29,8 @@ int main(){
     }
     printf("Alvo prioritario: %s (HP: %i)\n", menor.nome, menor.hp);
 
+    free(monstros);
+
     return 0;
 }
 

@@ -37,6 +37,7 @@ int main(){
         printf("%s %d\n", jogador[i].nome, jogador[i].eliminacoes);
     }
     
+    free(jogador);
 
     return 0;
 }
