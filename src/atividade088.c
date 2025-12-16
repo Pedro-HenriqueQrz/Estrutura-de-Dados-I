@@ -1,150 +1,159 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
+// Estrutura para os dados do jogador
 typedef struct {
-    int id;
-    char nome[50];
-}Jogador;
+    int mat;
+    char nome[100];
+} Estudante;
 
-struct No{
-    Jogador dado;
-    struct No * prox;
-};
+// Estrutura do nó da lista
+typedef struct No {
+    Estudante dado;
+    struct No *prox;
+} No;
 
+// Estrutura da lista, que contém o ponteiro para o início
 typedef struct {
-    struct No *inicio;
-}Lista;
+    No *inicio;
+} Lista;
 
-void menu(){
-    printf("\n=== GERENCIAMENTO DE JOGADORES ===\n");
-    printf("1 - Adicionar jogador no inicio\n");
-    printf("2 - Adicionar jogador no fim\n");
-    printf("3 - Mostrar lista de jogadores\n");
-    printf("4 - Remover jogador do inicio\n");
-    printf("5 - Remover jogador do fim\n");
-    printf("6 - Sair\n");
-    printf("===================================\n");
+// Função para exibir o menu de opções
+void menu() {
+    printf("\n======== Gerenciador de Party =========\n");
+    printf("1 - Adicionar jogador no inicio da party\n");
+    printf("2 - Adicionar jogador no fim da party\n");
+    printf("5 - Mostrar membros da party\n");
+    printf("7 - Remover primeiro jogador da party\n");
+    printf("8 - Remover ultimo jogador da party\n");
+    printf("9 - Sair\n");
+    printf("=======================================\n");
 }
 
-void ler(Jogador *pj){
-    printf("Digite o ID do jogador: ");
-    scanf(" %d", &pj->id);
-    printf("Digite o nome do jogador: ");
-    scanf(" %49s", pj->nome);
+// Função para ler os dados de um novo jogador
+void ler(Estudante *e) {
+    printf("Digite a matricula: ");
+    scanf("%d", &e->mat);
+    printf("Digite o nome: ");
+    scanf(" %[^\n]s", e->nome);
 }
 
-void inserir_inicio(Lista *plista, Jogador dado){
-    struct No *novo = (struct No*) malloc(sizeof(struct No));
+// Insere um nó no início da lista
+void inserir_inicio(Lista *plista, Estudante dado) {
+    No *novo = (No*) malloc(sizeof(No));
     novo->dado = dado;
     novo->prox = plista->inicio;
     plista->inicio = novo;
 }
 
-void inserir_fim(Lista *plista, Jogador dado){
-    struct No *novo = (struct No*) malloc(sizeof(struct No));
+// Insere um nó no fim da lista
+void inserir_fim(Lista *plista, Estudante dado) {
+    No *novo = (No*) malloc(sizeof(No));
     novo->dado = dado;
     novo->prox = NULL;
-    if (plista->inicio == NULL){
+    
+    if (plista->inicio == NULL) { // Lista vazia
         plista->inicio = novo;
-    }
-    else{
-        struct No *pi;
+    } else {
+        No *pi;
         for (pi = plista->inicio; pi->prox != NULL; pi = pi->prox);
         pi->prox = novo;
     }
 }
 
-void deletar_inicio(Lista *plista){
-    if (plista->inicio == NULL){
-        printf("\nNao ha jogadores na lista para remover.\n");
+// Mostra todos os elementos da lista
+void mostrar(Lista lista) {
+    if (lista.inicio == NULL) {
+        printf("A party esta vazia!\n");
+        return;
     }
-    else{
-        struct No * pi = plista->inicio;
-        printf("\nJogador removido: %s (ID: %d)\n", pi->dado.nome, pi->dado.id);
+    No *pi;
+    printf("\n--- Membros da Party ---\n");
+    for (pi = lista.inicio; pi != NULL; pi = pi->prox) {
+        printf("Matricula: %d | Nome: %s\n", pi->dado.mat, pi->dado.nome);
+    }
+    printf("------------------------\n");
+}
+
+// Deleta o primeiro nó da lista
+void deletar_inicio(Lista *plista) {
+    if (plista->inicio == NULL) {
+        printf("A lista ja esta vazia!\n");
+    } else {
+        No *pi = plista->inicio;
         plista->inicio = pi->prox;
         free(pi);
     }
 }
 
-void deletar_fim(Lista *plista){
-
-    if (plista->inicio == NULL){
-        printf("\nNao e possivel remover jogadores. A lista esta vazia.\n");
+// Função para deletar o último nó da lista
+void deletar_fim(Lista *plista) {
+    // Caso 1: Lista vazia
+    if (plista->inicio == NULL) {
+        printf("A party esta vazia! Nao e possivel remover jogadores.\n");
+        return;
     }
-
-    else if (plista->inicio->prox == NULL){
-        struct No * pi = plista->inicio;
-        printf("\nUltimo jogador removido: %s (ID: %d)\n", pi->dado.nome, pi->dado.id);
+    
+    // Caso 2: Lista com apenas um jogador
+    if (plista->inicio->prox == NULL) {
+        free(plista->inicio);
         plista->inicio = NULL;
-        free(pi);
+        printf("Ultimo jogador removido da party!\n");
+        return;
     }
-
-    else{
-        struct No* pi;
-        struct No* pa = NULL;
-
-        for (pi = plista->inicio; pi->prox != NULL; pi = pi->prox){
-            pa = pi;
-        }
-        printf("\nJogador removido do final: %s (ID: %d)\n", pi->dado.nome, pi->dado.id);
-
-        pa->prox = NULL;
-      
-        free(pi);
+    
+    // Caso 3: Lista com múltiplos jogadores
+    No *penultimo = plista->inicio;
+    while (penultimo->prox->prox != NULL) {
+        penultimo = penultimo->prox;
     }
+    
+    // Remove o último nó
+    free(penultimo->prox);
+    penultimo->prox = NULL;
+    printf("Ultimo jogador removido da party!\n");
 }
 
-void mostrar(Lista lista){
-    struct No * pi;
-    printf("\n=== LISTA DE JOGADORES ===\n");
-    if (lista.inicio == NULL){
-        printf("Nenhum jogador na lista.\n");
-    }
-    else{
-        for (pi = lista.inicio; pi != NULL; pi = pi->prox){
-            printf("ID: %d | Nome: %s\n", pi->dado.id, pi->dado.nome);
-        }
-    }
-    printf("==========================\n");
-}
-
-int main(){
+int main() {
     Lista lista;
     lista.inicio = NULL;
     int op;
-    
-    do{
+
+    do {
         menu();
         scanf("%d", &op);
-        
-        if (op == 1){
-            Jogador j;
-            printf("\n--- Adicionar jogador no inicio ---\n");
-            ler(&j);
-            inserir_inicio(&lista, j);
-            printf("\nJogador adicionado no inicio com sucesso!\n");
-        }
-        else if (op == 2){
-            Jogador j;
-            printf("\n--- Adicionar jogador no fim ---\n");
-            ler(&j);
-            inserir_fim(&lista, j);
-            printf("\nJogador adicionado no fim com sucesso!\n");
-        }
-        else if (op == 3){
-            mostrar(lista);
-        }
-        else if (op == 4){
-            printf("\n--- Remover jogador do inicio ---\n");
-            deletar_inicio(&lista);
-        }
-        else if (op == 5){
-            printf("\n--- Remover jogador do fim ---\n");
-            deletar_fim(&lista);
-        }
-    } while (op != 6);
 
-    printf("Programa Finalizado!");
-    
+        switch(op) {
+            case 1: {
+                Estudante e;
+                ler(&e);
+                inserir_inicio(&lista, e);
+                break;
+            }
+            case 2: {
+                Estudante e;
+                ler(&e);
+                inserir_fim(&lista, e);
+                break;
+            }
+            case 5:
+                mostrar(lista);
+                break;
+            case 7:
+                deletar_inicio(&lista);
+                break;
+            case 8:
+                deletar_fim(&lista);
+                break;
+            case 9:
+                printf("Saindo do programa...\n");
+                break;
+            default:
+                printf("Opcao invalida! Tente novamente.\n");
+        }
+
+    } while (op != 9);
+
     return 0;
 }
